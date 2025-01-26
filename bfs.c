@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 
 #define MAX 100
 #define MAX_NODE_LEN 10
@@ -77,7 +78,44 @@ int dequeue(Queue *q)
     return value;
 }
 
+int maxNum()
+{
+    int max = adjMat[0][0];
 
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            if(max < adjMat[i][j])
+            {
+                max = adjMat[i][j];
+            }
+        }
+    }
+
+    return log10(max) + 1;
+}
+
+int maxChars()
+{
+    int count = 0;
+    int max = 0;
+
+    for(int i = 0; i < n; i++)
+    {
+        while(nodes[i] != '\0')
+        {
+            count++;
+        }
+
+        if(max < count)
+        {
+            max = count;
+        }
+    }
+
+    return max;
+}
 
 int findNode(char c[10])
 {
@@ -91,6 +129,19 @@ int findNode(char c[10])
 
     printf("Invalid node name.\n");
     exit(1);
+}
+
+void printMatrix()
+{
+    int l = maxNum();
+    int cl = maxChars();
+
+    for(int i = 0; i < cl + 2; i++)
+    {
+        printf(" ");
+    }
+
+    
 }
 
 void readFile(FILE *file)
@@ -158,11 +209,6 @@ void readFile(FILE *file)
     }
 
     printf("\n");
-}
-
-void printMatrix()
-{
-
 }
 
 int main()
